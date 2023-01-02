@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shopping.app.model.User;
-import com.shopping.app.UserDao;
+import com.shopping.app.dao.jdbc.UserDao;
 import com.shopping.app.exceptions.Exceptions.DbException;
 import com.shopping.app.model.Address;
 
@@ -29,6 +29,13 @@ public class UserDaoImpl implements UserDao {
 	    pstmt.setString(2, user.getLastName());
 	    pstmt.setInt(3, user.getAge());
 	    pstmt.setString(4, user.getPhoneNumber());
+	    Address address = user.getAddress();
+	    pstmt.setString(5, address.getLine1());
+	    pstmt.setString(6, address.getLine2());
+	    pstmt.setString(7, address.getCity());
+	    pstmt.setString(8, address.getCountry());
+		pstmt.setString(9, address.getZipCode());
+
 
 	    pstmt.executeUpdate();
 
@@ -61,6 +68,16 @@ public class UserDaoImpl implements UserDao {
 		    user.setId(rs.getInt(1));
 		    user.setName(rs.getString(2));
 		    user.setLastName(rs.getString(3));
+		    user.setAge(rs.getInt(4));
+		    user.setPhoneNumber(rs.getString(5));
+
+		    Address address = user.getAddress();
+
+		    address.setLine1(rs.getString(6));
+		    address.setLine2(rs.getString(7));
+		    address.setCity(rs.getString(8));
+		    address.setCountry(rs.getString(9));
+		    address.setZipCode(rs.getString(10));
 
 		    return user;
 		}
@@ -76,7 +93,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAll() {
 	List<User> users = new ArrayList<>();
-	final String sql = "select id_person, name, last_name, age, id_country from person";
+	
+	final String sql = "select id_user, name, last_name, age, phone_number, address_line1, address_line2, city, country, zipcode from user";
 	try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
 	    // Process the results
@@ -87,11 +105,16 @@ public class UserDaoImpl implements UserDao {
 		    user.setName(rs.getString(2));
 		    user.setLastName(rs.getString(3));
 		    user.setAge(rs.getInt(4));
-		    Country country = new Country();
-	    	country.setId(rs.getInt(5));
-		    user.setCountry(country);
+		    user.setPhoneNumber(rs.getString(5));
+		    Address address = user.getAddress();
 
-		    users.add(person);
+		    address.setLine1(rs.getString(6));
+		    address.setLine2(rs.getString(7));
+		    address.setCity(rs.getString(8));
+		    address.setCountry(rs.getString(9));
+		    address.setZipCode(rs.getString(10));	    	
+
+		    users.add(user);
 		}
 	    } catch (SQLException ex) {
 		throw new DbException(ex);
@@ -104,31 +127,40 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-	final String sql = "update user set name= ?, last_name= ?, age= ?, id_country= ? where id_person = ?";
+    	
+	final String sql = "update user set name= ?, last_name= ?, age= ?, phone_number= ?, address_line1= ?, address_line2= ?, city= ?, country= ?, zipcode= ? where id_user = ?";
 	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	    // Set the parameters for the update.
 	    pstmt.setString(1, user.getName());
 	    pstmt.setString(2, user.getLastName());
 	    pstmt.setInt(3, user.getAge());
-	    pstmt.setInt(4, user.getCountry().getId());
-	    pstmt.setInt(5, user.getId());
+	    pstmt.setString(4, user.getPhoneNumber());
+
+	    Address address = user.getAddress();
+	    pstmt.setString(5, address.getLine1());
+	    pstmt.setString(6, address.getLine2());
+	    pstmt.setString(7, address.getCity());
+	    pstmt.setString(8, address.getCountry());
+		pstmt.setString(9, address.getZipCode());
+	    pstmt.setInt(10, user.getId());
 
 	    pstmt.executeUpdate();
 	} catch (SQLException ex) {
 	    throw new DbException(ex);
 	}
+	
     }
 
     @Override
     public void delete(User user) {
-	final String sql = "delete from person where id_person = ?";
-	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	    // Set the parameters for the delete.
-	    pstmt.setInt(1, user.getId());
+		final String sql = "delete from user where id_user = ?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    	// Set the parameters for the delete.
+	   	 pstmt.setInt(1, user.getId());
 
-	    pstmt.executeUpdate();
-	} catch (SQLException ex) {
+	   	 pstmt.executeUpdate();
+		} catch (SQLException ex) {
 	    throw new DbException(ex);
-	}
+		}
     }
 }
