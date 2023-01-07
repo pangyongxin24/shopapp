@@ -19,6 +19,15 @@
   </properties>
 
   <dependencies>
+
+    <!-- Maria DB driver. -->
+    <dependency>
+      <groupId>org.mariadb.jdbc</groupId>
+      <artifactId>mariadb-java-client</artifactId>
+      <version>3.0.7</version>
+    </dependency>
+
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

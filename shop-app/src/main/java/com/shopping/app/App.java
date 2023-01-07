@@ -5,6 +5,13 @@ import com.shopping.app.model.Order;
 import com.shopping.app.model.OrderItem;
 import com.shopping.app.model.User;
 import com.shopping.app.model.Product;
+import com.shopping.app.dao.jdbc.impl.UserDaoImpl;
+import com.shopping.app.dao.jdbc.UserDao;
+
+import com.shopping.app.dao.jdbc.DbConnection;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +33,7 @@ import java.util.Date;
  * 
   */
 public class App {
+
   /**
    * A method that receives an address and print an
    * address
@@ -196,5 +204,44 @@ public class App {
 
     Order order = orderSetter();
     printOrder(order);
+
+
+    UserDao userDaoImpl = new UserDaoImpl(DbConnection.getConnection());
+    userDaoImpl.insert(user);
+
+    System.out.println("Test Find by ID: ");
+    User user1 = userDaoImpl.findById(1);
+    System.out.println( " Name: " + user1.getName());
+
+
+    System.out.println("Test update: ");
+    User user3 = new User();
+    user3.setName("Hey");
+    user3.setLastName("Pan");
+    user3.setAge(19);
+    user3.setPhoneNumber("425 994 7033");
+    Address address3 = new Address();
+    address3.setLine1("Shui Dong Street");
+    address3.setLine2("Spring Road");
+    address3.setCity("QinZhou");
+    address3.setEstate("GuangXi");
+    address3.setCountry("China");
+    address3.setZipCode("94313");
+    user3.setAddress(address3);
+
+    userDaoImpl.update(user);
+
+
+    System.out.println("Test Find all: ");
+    List<User> listOfUsers = userDaoImpl.findAll();
+
+    for (int i = 0; i < listOfUsers.size(); i++) {
+        System.out.println("user " + i + " :" +listOfUsers.get(i).getName());
+    }
+
+
+
+
+
   }
 }

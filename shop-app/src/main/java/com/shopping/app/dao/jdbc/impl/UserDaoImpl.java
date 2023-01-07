@@ -46,16 +46,19 @@ public class UserDaoImpl implements UserDao {
 		    user.setId(id);
 		}
 	    } catch (SQLException ex) {
-		throw new DbException(ex);
+			throw new DbException(ex);
 	    }
-	} catch (SQLException ex) {
-	    throw new DbException(ex);
-	}
+		} catch (SQLException ex) {
+	    	throw new DbException(ex);
+		}
     }
 
+   
     @Override
     public User findById(int idUser) {
-	final String sql = "select name, last_name, age, phone_number, address_line1, address_line2, city, country, zipcode from user where id_user = ?";
+	//final String sql = "select name, last_name, age, phone_number, address_line1, address_line2, city, country, zipcode from user where id_user = ?";
+
+	final String sql = "select id_user, name, last_name, age, phone_number, address_line1, address_line2, city, country, zipcode from user where id_user = ?";
 	try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
 	    // Set the parameters for the query.
@@ -71,13 +74,14 @@ public class UserDaoImpl implements UserDao {
 		    user.setAge(rs.getInt(4));
 		    user.setPhoneNumber(rs.getString(5));
 
-		    Address address = user.getAddress();
-
+		    //Address address = user.getAddress();
+		    Address address = new Address();;
 		    address.setLine1(rs.getString(6));
 		    address.setLine2(rs.getString(7));
 		    address.setCity(rs.getString(8));
 		    address.setCountry(rs.getString(9));
 		    address.setZipCode(rs.getString(10));
+		    user.setAddress(address);
 
 		    return user;
 		}
@@ -89,6 +93,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	return null;
     }
+
 
     @Override
     public List<User> findAll() {
@@ -106,13 +111,14 @@ public class UserDaoImpl implements UserDao {
 		    user.setLastName(rs.getString(3));
 		    user.setAge(rs.getInt(4));
 		    user.setPhoneNumber(rs.getString(5));
-		    Address address = user.getAddress();
-
+		
+		    Address address = new Address();;
 		    address.setLine1(rs.getString(6));
 		    address.setLine2(rs.getString(7));
 		    address.setCity(rs.getString(8));
 		    address.setCountry(rs.getString(9));
-		    address.setZipCode(rs.getString(10));	    	
+		    address.setZipCode(rs.getString(10));
+		    user.setAddress(address);	
 
 		    users.add(user);
 		}
@@ -124,6 +130,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	return users;
     }
+
 
     @Override
     public void update(User user) {
@@ -151,6 +158,8 @@ public class UserDaoImpl implements UserDao {
 	
     }
 
+         /**
+
     @Override
     public void delete(User user) {
 		final String sql = "delete from user where id_user = ?";
@@ -163,4 +172,6 @@ public class UserDaoImpl implements UserDao {
 	    throw new DbException(ex);
 		}
     }
+
+    */
 }

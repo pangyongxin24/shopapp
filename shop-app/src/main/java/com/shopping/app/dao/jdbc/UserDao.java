@@ -18,7 +18,12 @@ public interface UserDao {
 
     public List<User> findAll();
 
+
     public void update(User user);
 
-    public void delete(User user);
+
+/**
+    public void delete(User user);*/
+
+
 }
