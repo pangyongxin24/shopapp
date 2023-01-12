@@ -152,13 +152,11 @@ public class UserDaoImpl implements UserDao {
 	    pstmt.setInt(10, user.getId());
 
 	    pstmt.executeUpdate();
-	} catch (SQLException ex) {
+		} catch (SQLException ex) {
 	    throw new DbException(ex);
-	}
+		}
 	
     }
-
-         /**
 
     @Override
     public void delete(User user) {
@@ -172,6 +170,4 @@ public class UserDaoImpl implements UserDao {
 	    throw new DbException(ex);
 		}
     }
-
-    */
 }

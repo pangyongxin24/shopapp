@@ -7,6 +7,8 @@ import com.shopping.app.model.User;
 import com.shopping.app.model.Product;
 import com.shopping.app.dao.jdbc.impl.UserDaoImpl;
 import com.shopping.app.dao.jdbc.UserDao;
+import com.shopping.app.dao.jdbc.impl.ProductDaoImpl;
+import com.shopping.app.dao.jdbc.ProductDao;
 
 import com.shopping.app.dao.jdbc.DbConnection;
 import java.sql.Connection;
@@ -205,6 +207,7 @@ public class App {
     Order order = orderSetter();
     printOrder(order);
 
+//testing user dao impl
 
     UserDao userDaoImpl = new UserDaoImpl(DbConnection.getConnection());
     userDaoImpl.insert(user);
@@ -240,7 +243,12 @@ public class App {
     }
 
 
+    System.out.println("Test delete: ");
+    userDaoImpl.delete(user);
+//finish testing all functionalities in userdao impl
 
+    ProductDao productDaoImpl = new ProductDaoImpl(DbConnection.getConnection());
+    productDaoImpl.insert(product);
 
 
   }

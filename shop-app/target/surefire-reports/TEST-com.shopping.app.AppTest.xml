@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.shopping.app.AppTest" time="0.036" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.shopping.app.AppTest" time="0.037" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CN"/>
     <property name="sun.boot.library.path" value="/Users/SerenaPang/Library/Java/JavaVirtualMachines/openjdk-18.0.2.1/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/surefire/surefirebooter16015179728848866840.jar /Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/surefire 2023-01-07T20-58-44_375-jvmRun1 surefire17034865613156012639tmp surefire_013123946507542901065tmp"/>
+    <property name="sun.java.command" value="/Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/surefire/surefirebooter16611517919239191038.jar /Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/surefire 2023-01-12T15-04-55_345-jvmRun1 surefire17821419385124884692tmp surefire_09570051319439137423tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/test-classes:/Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/classes:/Users/SerenaPang/.m2/repository/org/mariadb/jdbc/mariadb-java-client/3.0.7/mariadb-java-client-3.0.7.jar:/Users/SerenaPang/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/SerenaPang/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
@@ -30,7 +30,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/surefire/surefirebooter16015179728848866840.jar"/>
+    <property name="surefire.real.class.path" value="/Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/surefire/surefirebooter16611517919239191038.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="18.0.2.1+1-1"/>
