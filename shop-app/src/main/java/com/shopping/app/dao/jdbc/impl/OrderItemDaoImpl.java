@@ -8,26 +8,30 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shopping.app.model.Product;
-import com.shopping.app.dao.jdbc.ProductDao;
+import com.shopping.app.model.OrderItem;
+import com.shopping.app.dao.jdbc.OrderItemDao;
+import com.shopping.app.model.Order;
+import com.shopping.app.dao.jdbc.OrderDao;
 import com.shopping.app.exceptions.Exceptions.DbException;
 
-public class ProductDaoImpl implements ProductDao {
+public class OrderItemDaoImpl implements OrderItemDao {
     private Connection conn;
 
-    public ProductDaoImpl(Connection con) {
+    public OrderItemDaoImpl(Connection con) {
 	this.conn = con;
     }
 
     @Override
-    public void insert(Product product) {
-	final String sql = "insert into product(name, description, price, barcode) values(?,?,?,?)";
+    public void insert(OrderItem orderItem) {
+	final String sql = "insert into order_item(id_order, id_product, units, total_price) values(?,?,?)";
 	try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 	    // Set the parameters for the insert.
-	    pstmt.setString(1, product.getName());
-	    pstmt.setString(2, product.getDescription());
-	    pstmt.setDouble(3, product.getPrice());
-	    pstmt.setString(4, product.getBarcode());
+
+	    pstmt.setInt(1, orderItem.getOrder().getId());
+	    pstmt.setInt(2, orderItem.getProduct().getId());
+	    pstmt.setInt(3, orderItem.getUnits());
+	    pstmt.setDouble(4, orderItem.getTotal());
+	   
 
 	    pstmt.executeUpdate();
 
@@ -35,7 +39,7 @@ public class ProductDaoImpl implements ProductDao {
 	    try (ResultSet rs = pstmt.getGeneratedKeys()) {
 		if (rs.next()) {
 		    int id = rs.getInt(1);
-		    product.setId(id);
+		    orderItem.setId(id);
 		}
 	    } catch (SQLException ex) {
 			throw new DbException(ex);
@@ -45,7 +49,7 @@ public class ProductDaoImpl implements ProductDao {
 		}
     }
 
-   
+ /** 
     @Override
     public Product findById(int idProduct) {
 
@@ -75,7 +79,7 @@ public class ProductDaoImpl implements ProductDao {
 	return null;
     }
 
-
+ 
     @Override
     public List<Product> findAll() {
 	List<Product> products = new ArrayList<>();
@@ -136,4 +140,5 @@ public class ProductDaoImpl implements ProductDao {
 	    throw new DbException(ex);
 		}
     }
+    */
 }

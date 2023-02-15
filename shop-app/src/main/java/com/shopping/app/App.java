@@ -9,6 +9,10 @@ import com.shopping.app.dao.jdbc.impl.UserDaoImpl;
 import com.shopping.app.dao.jdbc.UserDao;
 import com.shopping.app.dao.jdbc.impl.ProductDaoImpl;
 import com.shopping.app.dao.jdbc.ProductDao;
+import com.shopping.app.dao.jdbc.impl.OrderDaoImpl;
+import com.shopping.app.dao.jdbc.OrderDao;
+import com.shopping.app.dao.jdbc.impl.OrderItemDaoImpl;
+import com.shopping.app.dao.jdbc.OrderItemDao;
 
 import com.shopping.app.dao.jdbc.DbConnection;
 import java.sql.Connection;
@@ -16,7 +20,9 @@ import java.sql.SQLException;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Hello world!
@@ -26,8 +32,11 @@ import java.util.Date;
  * The commands below have to be executed in the root directory of the
  * project, where the pom.xml is located.
  * 
+ * /Users/SerenaPang/Desktop/Fullstack/project/shop-app/target/shop-app-1.0-SNAPSHOT-jar-with-dependencies.jar
+ * 
  * mvn package
  * java -cp target/shop-app-1.0-SNAPSHOT.jar com.shopping.app.App
+ * java -cp target/shop-app-1.0-SNAPSHOT-jar-with-dependencies.jar com.shopping.app.App
  * 
  * link to create the maven project from sc
  * 
@@ -146,8 +155,7 @@ public class App {
   */
   public static Order orderSetter() {
     Order order = new Order();
-   // Date date = new Date(2022-12-11 20:03:22);
-   // order.setCreated(date);
+
     User user = new User();
     user.setName("Serena");
     user.setLastName("Pan");
@@ -162,6 +170,15 @@ public class App {
     address.setZipCode("94303");
     user.setAddress(address);
     order.setUser(user);
+
+
+    Timestamp time= new Timestamp(System.currentTimeMillis());//获取系统当前时间   
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+    String timeStr = df.format(time);   
+    time = Timestamp.valueOf(timeStr);   
+    System.out.println(time);
+
+    order.setCreated(time);
 
     OrderItem orderItem = new OrderItem();
     orderItem.setUnits(4);
@@ -192,11 +209,28 @@ public class App {
   public static void main(String[] args) {
     System.out.println("Welcome to my app!");
     
-    Address address = addressSetter();
+  
+
+    //testing user dao impl
+    User user = userSetter();
+    UserDao userDaoImpl = new UserDaoImpl(DbConnection.getConnection());
+    userDaoImpl.insert(user);
+    //printUser(user);
+
+    //test order dao impl
+    Order order = orderSetter();
+    OrderDao orderDaoImpl = new OrderDaoImpl(DbConnection.getConnection());
+    orderDaoImpl.insert(order);
+
+
+/**
+ * 
+ * 
+ * 
+ *   Address address = addressSetter();
     printAddress(address);
 
-    User user = userSetter();
-    printUser(user);
+    
 
     Product product = productSetter();
     printProduct(product);
@@ -204,14 +238,8 @@ public class App {
     OrderItem orderItem = orderItemSetter();
     printOrderItem(orderItem);
 
-    Order order = orderSetter();
+    
     printOrder(order);
-
-//testing user dao impl
-
-    UserDao userDaoImpl = new UserDaoImpl(DbConnection.getConnection());
-    userDaoImpl.insert(user);
-
     System.out.println("Test Find by ID: ");
     User user1 = userDaoImpl.findById(1);
     System.out.println( " Name: " + user1.getName());
@@ -245,11 +273,12 @@ public class App {
 
     System.out.println("Test delete: ");
     userDaoImpl.delete(user);
-//finish testing all functionalities in userdao impl
 
     ProductDao productDaoImpl = new ProductDaoImpl(DbConnection.getConnection());
     productDaoImpl.insert(product);
 
+   
 
+*/
   }
 }

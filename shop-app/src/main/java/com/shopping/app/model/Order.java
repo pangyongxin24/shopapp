@@ -8,6 +8,7 @@ public class Order {
   private int id;
   private User user;
   private Date created;
+  private double total;
   private List<OrderItem> items;
 
   public Order() {
